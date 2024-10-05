@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_DeleteContact_API_Validate_API</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>bbcb2cc5-01ae-4389-b426-fceb46a330d6</testCaseGuid>
+</TestCaseEntity>
