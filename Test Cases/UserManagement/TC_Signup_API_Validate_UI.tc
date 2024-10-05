@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_Signup_API_Validate_UI</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>4bc906fc-48b1-4efe-b9ca-63fec9dcf8c1</testCaseGuid>
+</TestCaseEntity>
