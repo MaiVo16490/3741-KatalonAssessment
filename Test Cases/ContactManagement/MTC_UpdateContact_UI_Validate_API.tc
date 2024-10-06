@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>TC_UpdateContact_API_Validate_UI</name>
+   <name>MTC_UpdateContact_UI_Validate_API</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
-   <testCaseGuid>c28e28ec-7a56-4223-addd-e6dcf7c21706</testCaseGuid>
+   <testCaseGuid>b18f6c26-9a98-45c2-b698-47155f989b62</testCaseGuid>
 </TestCaseEntity>

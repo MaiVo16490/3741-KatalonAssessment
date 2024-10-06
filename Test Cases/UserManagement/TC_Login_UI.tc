@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>TC_DeleteContact_API_Validate_API</name>
+   <name>TC_Login_UI</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
-   <testCaseGuid>bbcb2cc5-01ae-4389-b426-fceb46a330d6</testCaseGuid>
+   <testCaseGuid>0c7cb0b8-9a66-4644-a593-e93ce3589a2a</testCaseGuid>
 </TestCaseEntity>

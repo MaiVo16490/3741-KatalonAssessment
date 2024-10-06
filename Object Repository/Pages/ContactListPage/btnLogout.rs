@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>btnSubmit</name>
+   <name>btnLogout</name>
    <tag></tag>
-   <elementGuidId>93e8b236-6f7a-433f-9f84-2e3a764a79c8</elementGuidId>
+   <elementGuidId>9a3cf1ac-95c3-4d61-a422-137cffc94f96</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
@@ -11,7 +11,7 @@
       </entry>
       <entry>
          <key>XPATH</key>
-         <value>//*[@id=&quot;submit&quot;]</value>
+         <value>//*[@id=&quot;logout&quot;]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>XPATH</selectorMethod>

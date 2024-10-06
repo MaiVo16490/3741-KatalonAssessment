@@ -21,6 +21,10 @@ import com.kms.katalon.core.annotation.AfterTestCase
 import com.kms.katalon.core.annotation.AfterTestSuite
 import com.kms.katalon.core.context.TestCaseContext
 import com.kms.katalon.core.context.TestSuiteContext
+import com.kms.katalon.core.util.KeywordUtil
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+import groovy.json.JsonSlurper
+
 
 class TestListener {
 	/**
@@ -29,8 +33,20 @@ class TestListener {
 	 */
 	@BeforeTestCase
 	def sampleBeforeTestCase(TestCaseContext testCaseContext) {
-		println testCaseContext.getTestCaseId()
-		println testCaseContext.getTestCaseVariables()
+		 // Log the start of the test case
+       println "Starting test case: " + testCaseContext.getTestCaseId()
+
+       // Send the login request and get the response
+       def response = WS.sendRequest(findTestObject('Object Repository/Auth'))
+       
+       // Parse the response body
+       def jsonResponse = new JsonSlurper().parseText(response.getResponseBodyContent())
+
+       // Set the token to the Global Variable
+       GlobalVariable.authToken = jsonResponse.token
+
+       // Log the token for debugging purposes
+       println "Auth token: " + GlobalVariable.authToken
 	}
 
 	/**
