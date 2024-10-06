@@ -22,7 +22,7 @@ def signUpResponse = WS.sendRequest(findTestObject('Object Repository/SignUpAPI'
 def responseBody = signUpResponse.getResponseBodyContent()
 def responseStatus = signUpResponse.getStatusCode()
 println("Sign Up Response Status: " + responseStatus)
-println("Sign Up Response Body (Raw): " + responseBody)
+
 
 // Parse the JSON response
 def jsonResponse = new JsonSlurper().parseText(responseBody)
@@ -84,4 +84,4 @@ WebUI.closeBrowser()
 
 // Log completion message
 println("Login successfully validated for email: " + GlobalVariable.newEmail)
-println("Token used for sign up: " + token)  // Print token again if needed
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>MTC_AddContact_UI_Validate_API</name>
+   <name>TC_AddContact_UI_Validate_API</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
