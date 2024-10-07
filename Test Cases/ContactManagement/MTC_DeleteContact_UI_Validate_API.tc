@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description></description>
-   <name>MTC_DeleteContact_UI_Validate_API</name>
-   <tag></tag>
-   <comment></comment>
-   <recordOption>OTHER</recordOption>
-   <testCaseGuid>111a62f5-3212-41fe-883a-079d7286b629</testCaseGuid>
-</TestCaseEntity>

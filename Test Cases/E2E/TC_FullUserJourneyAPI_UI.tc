@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_FullUserJourneyAPI_UI</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>8c5d1004-f7fd-48d5-99bc-dace81842bb4</testCaseGuid>
+</TestCaseEntity>

@@ -37,16 +37,16 @@ class TestListener {
        println "Starting test case: " + testCaseContext.getTestCaseId()
 
        // Send the login request and get the response
-       def response = WS.sendRequest(findTestObject('Object Repository/Auth'))
+       def response = WS.sendRequest(findTestObject('Object Repository/UsersAPI/Auth'))
        
        // Parse the response body
        def jsonResponse = new JsonSlurper().parseText(response.getResponseBodyContent())
 
        // Set the token to the Global Variable
-       GlobalVariable.authToken = jsonResponse.token
+       GlobalVariable.bearerAuthToken = jsonResponse.token
 
        // Log the token for debugging purposes
-       println "Auth token: " + GlobalVariable.authToken
+       println "Auth token: " + GlobalVariable.bearerAuthToken
 	}
 
 	/**
