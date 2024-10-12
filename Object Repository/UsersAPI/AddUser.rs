@@ -8,11 +8,11 @@
    <smartLocatorEnabled>false</smartLocatorEnabled>
    <useRalativeImagePath>false</useRalativeImagePath>
    <autoUpdateContent>false</autoUpdateContent>
-   <connectionTimeout>-1</connectionTimeout>
+   <connectionTimeout>0</connectionTimeout>
    <followRedirects>false</followRedirects>
    <httpBody></httpBody>
    <httpBodyContent>{
-  &quot;text&quot;: &quot;{\n  \&quot;firstName\&quot;: \&quot;TestFirstName\&quot;,\n  \&quot;lastName\&quot;: \&quot;TestLastName\&quot;,\n  \&quot;email\&quot;: \&quot;${newEmail}\&quot;,\n  \&quot;password\&quot;: \&quot;${newPass}\&quot;\n}\n&quot;,
+  &quot;text&quot;: &quot;{\n  \&quot;email\&quot;: \&quot;${newEmail}\&quot;,\n  \&quot;password\&quot;: \&quot;${newPass}\&quot;,\n  \&quot;firstName\&quot;: \&quot;${newfirstName}\&quot;,\n  \&quot;lastName\&quot;: \&quot;${newlastName}\&quot;\n}&quot;,
   &quot;contentType&quot;: &quot;application/json&quot;,
   &quot;charset&quot;: &quot;UTF-8&quot;
 }</httpBodyContent>
@@ -26,7 +26,7 @@
       <webElementGuid>f33d3dc6-6102-40df-9513-80d72d2b7303</webElementGuid>
    </httpHeaderProperties>
    <katalonVersion>9.6.0</katalonVersion>
-   <maxResponseSize>-1</maxResponseSize>
+   <maxResponseSize>0</maxResponseSize>
    <migratedVersion>5.4.1</migratedVersion>
    <path></path>
    <restRequestMethod>POST</restRequestMethod>
@@ -37,7 +37,7 @@
    <soapRequestMethod></soapRequestMethod>
    <soapServiceEndpoint></soapServiceEndpoint>
    <soapServiceFunction></soapServiceFunction>
-   <socketTimeout>-1</socketTimeout>
+   <socketTimeout>0</socketTimeout>
    <useServiceInfoFromWsdl>true</useServiceInfoFromWsdl>
    <variables>
       <defaultValue>''</defaultValue>
