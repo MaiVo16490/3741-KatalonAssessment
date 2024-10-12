@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>TC_UpdateContact_UI</name>
+   <name>TC_DeleteContact_Web</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
-   <testCaseGuid>b18f6c26-9a98-45c2-b698-47155f989b62</testCaseGuid>
+   <testCaseGuid>111a62f5-3212-41fe-883a-079d7286b629</testCaseGuid>
 </TestCaseEntity>

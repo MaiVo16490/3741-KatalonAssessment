@@ -11,3 +11,5 @@ def jsonResponse = new JsonSlurper().parseText(response.getResponseBodyContent()
 def token=jsonResponse.token
 def bearer_token="bearer "+token
 GlobalVariable.bearerAuthToken = bearer_token
+
+

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>TC_GetContactList_UI</name>
+   <name>TC_EditExistingContact_Web</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
-   <testCaseGuid>51894a28-9b98-4885-9f34-6440684319b8</testCaseGuid>
+   <testCaseGuid>cad59290-5a94-46a7-acef-60f425f16d4c</testCaseGuid>
 </TestCaseEntity>

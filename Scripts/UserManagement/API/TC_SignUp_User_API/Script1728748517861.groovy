@@ -37,6 +37,19 @@ import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import internal.GlobalVariable as GlobalVariable
 
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+import groovy.json.JsonSlurper
+import com.kms.katalon.core.testobject.TestObjectProperty
+import com.kms.katalon.core.testobject.ConditionType
+import com.kms.katalon.core.testobject.impl.HttpTextBodyContent
+import internal.GlobalVariable as GlobalVariable
+
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+import groovy.json.JsonSlurper
+import internal.GlobalVariable as GlobalVariable
+
 // Step 1: Generate random first and last name using custom keywords
 def randomFirstName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomFirstName'()
 def randomLastName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomLastName'()
@@ -119,40 +132,4 @@ WS.verifyElementPropertyValue(getUserResponse, 'email', GlobalVariable.newEmail)
 println("User data via API matches GlobalVariable: First Name, Last Name, and Email are correct.")
 
 
-// Step 7: UI Validation for Login
 
-// Open browser and navigate to the login page
-WebUI.openBrowser('')
-WebUI.navigateToUrl('https://thinking-tester-contact-list.herokuapp.com')
-
-// Input email and password in the login form
-WebUI.setText(findTestObject('Pages/LoginPage/txtEmail'), GlobalVariable.newEmail)
-WebUI.setText(findTestObject('Pages/LoginPage/txtPassword'), Pass)
-
-// Click the login button
-WebUI.click(findTestObject('Pages/LoginPage/btnSubmit'))
-
-// Wait for possible redirection and page load
-WebUI.delay(10) // Increase the delay to ensure page fully loads
-WebUI.waitForPageLoad(10)
-
-// Verify successful login by checking the URL
-def currentUrl = WebUI.getUrl()
-println("Current URL: " + currentUrl)
-boolean urlContainsContactList = currentUrl.contains('/contactList')
-
-if (urlContainsContactList) {
-    println("Login successful: The URL contains '/contactList'.")
-} else {
-    println("Login failed: The URL does not contain '/contactList'.")
-    WebUI.verifyTrue(urlContainsContactList) // Fail if URL is incorrect
-}
-
-// Verify presence of logout button to confirm successful login
-WebUI.verifyElementPresent(findTestObject('Pages/ContactListPage/btnLogout'), 10)
-
-// Close the browser
-WebUI.closeBrowser()
-
-// Log the successful login
-println("Login successfully validated for email: ${GlobalVariable.newEmail}")

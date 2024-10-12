@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>TC_AddContact_UI</name>
+   <name>TC_Login_User_Web</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
-   <testCaseGuid>3de5438c-ea69-415e-9060-a53274840254</testCaseGuid>
+   <testCaseGuid>0c7cb0b8-9a66-4644-a593-e93ce3589a2a</testCaseGuid>
 </TestCaseEntity>

@@ -20,15 +20,44 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 
 import internal.GlobalVariable
 
+import customKeywords.RandomNameGenerator
+
 
 import com.kms.katalon.core.annotation.Keyword
 
-class RandomEmailGenerator {
+public class RandomNameGenerator {
 
-	// Keyword to generate a random email with a specified max range
 	@Keyword
-	def static generateRandomEmail(int maxRange = 1000) {
-		int randomNumber = (int)(Math.random() * maxRange)
-		return "user" + randomNumber + "@example.com"
+	def generateRandomFirstName() {
+		def firstNames = [
+			"John",
+			"Jane",
+			"Alex",
+			"Chris",
+			"Katie",
+			"Linda",
+			"Steve",
+			"Michael",
+			"Anna",
+			"David"
+		]
+		return firstNames[(new Random()).nextInt(firstNames.size())]
+	}
+
+	@Keyword
+	def generateRandomLastName() {
+		def lastNames = [
+			"Smith",
+			"Johnson",
+			"Brown",
+			"Taylor",
+			"Anderson",
+			"Lee",
+			"Martinez",
+			"Garcia",
+			"Clark",
+			"Lewis"
+		]
+		return lastNames[(new Random()).nextInt(lastNames.size())]
 	}
 }

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description></description>
-   <name>TC_UpdateUser_UI</name>
-   <tag></tag>
-   <comment></comment>
-   <recordOption>OTHER</recordOption>
-   <testCaseGuid>8b35fa08-20f6-46d0-8562-505ed1c5d636</testCaseGuid>
-</TestCaseEntity>
