@@ -11,7 +11,7 @@
       <authorizationInfo>
          <entry>
             <key>bearerToken</key>
-            <value>${GlobalVariable.bearerAuthToken}</value>
+            <value>${GlobalVariable.token}</value>
          </entry>
       </authorizationInfo>
       <authorizationType>Bearer</authorizationType>
@@ -39,8 +39,8 @@
       <matchCondition>equals</matchCondition>
       <name>Authorization</name>
       <type>Main</type>
-      <value>Bearer ${GlobalVariable.bearerAuthToken}</value>
-      <webElementGuid>866cafa6-36f7-4398-9c82-159cd7a67dc5</webElementGuid>
+      <value>Bearer ${GlobalVariable.token}</value>
+      <webElementGuid>9cc09483-b1a3-4114-9bf1-35261e2d7e82</webElementGuid>
    </httpHeaderProperties>
    <katalonVersion>9.6.0</katalonVersion>
    <maxResponseSize>0</maxResponseSize>
