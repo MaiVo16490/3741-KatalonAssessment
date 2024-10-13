@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description></description>
-   <name>TC_AddContactUI_EditContactAPI</name>
-   <tag></tag>
-   <comment></comment>
-   <recordOption>OTHER</recordOption>
-   <testCaseGuid>f8c11c45-7e59-4c4d-860c-9d2642eb84e3</testCaseGuid>
-</TestCaseEntity>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description></description>
-   <name>TC_SignUpAPI_LoginUI</name>
-   <tag></tag>
-   <comment></comment>
-   <recordOption>OTHER</recordOption>
-   <testCaseGuid>61937c74-97ce-49b0-a648-cdb36f411af6</testCaseGuid>
-</TestCaseEntity>
