@@ -27,7 +27,7 @@
    <GlobalVariableEntity>
       <description></description>
       <initValue>''</initValue>
-      <name>bearerAuthToken</name>
+      <name>token</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
