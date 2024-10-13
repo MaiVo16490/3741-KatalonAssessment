@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebServiceRequestEntity>
    <description></description>
-   <name>UpdateContact</name>
+   <name>PUT_UpdateContact</name>
    <tag></tag>
    <elementGuidId>de02da34-2348-4b47-adb5-0875b4c80f88</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
@@ -24,6 +24,14 @@
       <type>Main</type>
       <value>application/json</value>
       <webElementGuid>35c42f68-7e21-4c26-8f57-300514158e4b</webElementGuid>
+   </httpHeaderProperties>
+   <httpHeaderProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>Authorization</name>
+      <type>Main</type>
+      <value>Bearer ${GlobalVariable.bearerAuthToken}</value>
+      <webElementGuid>25b5d456-70b3-456d-93eb-6e94997fc394</webElementGuid>
    </httpHeaderProperties>
    <katalonVersion>9.6.0</katalonVersion>
    <maxResponseSize>-1</maxResponseSize>

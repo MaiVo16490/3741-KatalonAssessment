@@ -25,6 +25,14 @@
       <value>application/json</value>
       <webElementGuid>00872c62-c197-4293-9997-ebdda2ced996</webElementGuid>
    </httpHeaderProperties>
+   <httpHeaderProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>Authorization</name>
+      <type>Main</type>
+      <value>Bearer ${GlobalVariable.bearerAuthToken}</value>
+      <webElementGuid>ad376b9e-b8a3-4d30-a939-d78acb7d8c23</webElementGuid>
+   </httpHeaderProperties>
    <katalonVersion>9.6.0</katalonVersion>
    <maxResponseSize>-1</maxResponseSize>
    <migratedVersion>5.4.1</migratedVersion>
