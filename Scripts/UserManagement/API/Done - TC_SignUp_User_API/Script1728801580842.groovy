@@ -60,7 +60,7 @@ println("Full Parsed Response: $jsonResponse")
 def token = jsonResponse?.token
 if (token) {
     println("Token: $token")
-    GlobalVariable.bearerAuthToken = token // Store token for future use
+    GlobalVariable.token = token // Store token for future use
 } else {
     println("Sign up failed: No token returned")
     return // Exit if no token is returned
@@ -70,10 +70,10 @@ if (token) {
 TestObject getUserProfileRequest = findTestObject('Object Repository/UsersAPI/GetUserProfile')
 
 // Add authorization header with bearer token
-getUserProfileRequest.getHttpHeaderProperties().add(new TestObjectProperty('Authorization', ConditionType.EQUALS, 'Bearer ' + GlobalVariable.bearerAuthToken))
+getUserProfileRequest.getHttpHeaderProperties().add(new TestObjectProperty('Authorization', ConditionType.EQUALS, 'Bearer ' + GlobalVariable.token))
 
 // Log the authorization header
-println("Authorization header set to: Bearer " + GlobalVariable.bearerAuthToken)
+println("Authorization header set to: Bearer " + GlobalVariable.token)
 
 // Send GET request
 def getUserResponse = WS.sendRequest(getUserProfileRequest)

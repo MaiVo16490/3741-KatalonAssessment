@@ -39,7 +39,7 @@ class TestListener {
 			def response = ApiHelper.sendRequest('Object Repository/UsersAPI/Auth')
 			ApiHelper.verifyStatusCode(response, 200)
 			def jsonRes = ApiHelper.getResponseBody(response)
-			GlobalVariable.bearerAuthToken = jsonRes.token
+			GlobalVariable.token = jsonRes.token
 			println "login successfully"
 		} else {
 			println "Skip login step"

@@ -19,7 +19,7 @@ import utils.ApiHelper as ApiHelper
 // Step 1: send request Login via api
 def responsePost = ApiHelper.sendRequest('Object Repository/UsersAPI/Auth')
 def jsonResPost = ApiHelper.getResponseBody(responsePost)
-GlobalVariable.bearerAuthToken = jsonResPost.token
+GlobalVariable.token = jsonResPost.token
 
 // Step 2: verify status code
 ApiHelper.verifyStatusCode(responsePost, 200)
