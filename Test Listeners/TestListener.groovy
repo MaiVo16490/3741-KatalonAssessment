@@ -2,6 +2,9 @@ import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import static org.mockito.Mockito.RETURNS_DEFAULTS
+
+import java.nio.file.WatchService
 
 import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
@@ -22,58 +25,39 @@ import com.kms.katalon.core.annotation.AfterTestSuite
 import com.kms.katalon.core.context.TestCaseContext
 import com.kms.katalon.core.context.TestSuiteContext
 import com.kms.katalon.core.util.KeywordUtil
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+
 import groovy.json.JsonSlurper
+
+import utils.ApiHelper as ApiHelper
 
 
 class TestListener {
-	/**
-	 * Executes before every test case starts.
-	 * @param testCaseContext related information of the executed test case.
-	 */
 	@BeforeTestCase
-	def sampleBeforeTestCase(TestCaseContext testCaseContext) {
-		 // Log the start of the test case
-       println "Starting test case: " + testCaseContext.getTestCaseId()
-
-       // Send the login request and get the response
-       def response = WS.sendRequest(findTestObject('Object Repository/UsersAPI/Auth'))
-       
-       // Parse the response body
-       def jsonResponse = new JsonSlurper().parseText(response.getResponseBodyContent())
-
-       // Set the token to the Global Variable
-       GlobalVariable.bearerAuthToken = jsonResponse.token
-
-       // Log the token for debugging purposes
-       println "Auth token: " + GlobalVariable.bearerAuthToken
+	def sampleBeforeTestCase(TestCaseContext testCaseContext) {		
+		def testCaseName = testCaseContext.getTestCaseId()
+		if (!testCaseName.contains('Login') && !testCaseName.contains('SignUp')) {
+			def response = ApiHelper.sendRequest('Object Repository/UsersAPI/Auth')
+			ApiHelper.verifyStatusCode(response, 200)
+			def jsonRes = ApiHelper.getResponseBody(response)
+			GlobalVariable.bearerAuthToken = jsonRes.token
+			println "login successfully"
+		} else {
+			println "Skip login step"
+		}
 	}
 
-	/**
-	 * Executes after every test case ends.
-	 * @param testCaseContext related information of the executed test case.
-	 */
 	@AfterTestCase
 	def sampleAfterTestCase(TestCaseContext testCaseContext) {
-		println testCaseContext.getTestCaseId()
-		println testCaseContext.getTestCaseStatus()
+
 	}
 
-	/**
-	 * Executes before every test suite starts.
-	 * @param testSuiteContext: related information of the executed test suite.
-	 */
 	@BeforeTestSuite
 	def sampleBeforeTestSuite(TestSuiteContext testSuiteContext) {
-		println testSuiteContext.getTestSuiteId()
+
 	}
 
-	/**
-	 * Executes after every test suite ends.
-	 * @param testSuiteContext: related information of the executed test suite.
-	 */
 	@AfterTestSuite
 	def sampleAfterTestSuite(TestSuiteContext testSuiteContext) {
-		println testSuiteContext.getTestSuiteId()
+
 	}
 }
