@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>TC_EditUser_API</name>
+   <name>TC_Edit_User_API</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
