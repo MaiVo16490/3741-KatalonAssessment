@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebServiceRequestEntity>
    <description></description>
-   <name>AddContact</name>
+   <name>AddListContact</name>
    <tag></tag>
-   <elementGuidId>64499073-5803-46c8-9915-cbb6358b6410</elementGuidId>
+   <elementGuidId>936379ff-53d7-44f3-bdd6-c6bbe5332248</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <smartLocatorEnabled>false</smartLocatorEnabled>
    <useRalativeImagePath>false</useRalativeImagePath>
@@ -21,7 +21,7 @@
    <followRedirects>false</followRedirects>
    <httpBody></httpBody>
    <httpBodyContent>{
-  &quot;text&quot;: &quot;{\n    \&quot;firstName\&quot;: \&quot;Mai\&quot;,\n    \&quot;lastName\&quot;: \&quot;Vo\&quot;,\n    \&quot;birthdate\&quot;: \&quot;2000-09-16\&quot;,\n    \&quot;email\&quot;: \&quot;mvo@fake.com\&quot;,\n    \&quot;phone\&quot;: \&quot;0705555555\&quot;,\n    \&quot;street1\&quot;: \&quot;1 Main St.\&quot;,\n    \&quot;street2\&quot;: \&quot;Apartment A\&quot;,\n    \&quot;city\&quot;: \&quot;Anytown\&quot;,\n    \&quot;stateProvince\&quot;: \&quot;KMS\&quot;,\n    \&quot;postalCode\&quot;: \&quot;0123\&quot;,\n    \&quot;country\&quot;: \&quot;VN\&quot;\n}&quot;,
+  &quot;text&quot;: &quot;&quot;,
   &quot;contentType&quot;: &quot;application/json&quot;,
   &quot;charset&quot;: &quot;UTF-8&quot;
 }</httpBodyContent>
@@ -32,7 +32,7 @@
       <name>Content-Type</name>
       <type>Main</type>
       <value>application/json</value>
-      <webElementGuid>f473779a-d2f1-44a5-ae32-3f08921a1333</webElementGuid>
+      <webElementGuid>2bb742ec-613c-4e1e-9e50-f4b4644add8f</webElementGuid>
    </httpHeaderProperties>
    <httpHeaderProperties>
       <isSelected>true</isSelected>
@@ -40,7 +40,7 @@
       <name>Authorization</name>
       <type>Main</type>
       <value>Bearer ${GlobalVariable.token}</value>
-      <webElementGuid>1ae6915d-6727-4743-8f4c-d2c8ae4dfe14</webElementGuid>
+      <webElementGuid>a9bedc2e-4037-48d6-94b8-3c5e520f76a8</webElementGuid>
    </httpHeaderProperties>
    <katalonVersion>9.6.0</katalonVersion>
    <maxResponseSize>-1</maxResponseSize>

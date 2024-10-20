@@ -54,6 +54,16 @@ public class ApiHelper {
 		def abc = ApiHelper.setBody(path, data)
 		return WS.sendRequest(abc)
 	}
-	
-	
+	// Function to log bugs
+	static void logBug(String bugMessage) {
+		// You can adjust this to log in a file, a bug tracking tool, or console output
+
+		// Example: Log the bug in the console for now
+		println "LOG BUG: ${bugMessage}"
+
+		// Optionally, you can extend this to write the bug details into a file:
+		def logFile = new File("bug_log.txt")
+		logFile << "${new Date()} - ${bugMessage}\n"
+	}
+
 }

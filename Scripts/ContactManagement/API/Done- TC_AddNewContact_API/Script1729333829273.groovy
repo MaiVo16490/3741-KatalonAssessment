@@ -19,7 +19,7 @@ String data =
 """
 
 // Step 1: send request Add Contact via api
-def response = ApiHelper.sendRequest('Object Repository/ContactsAPI/AddContact', data)
+def response = ApiHelper.sendRequest('Object Repository/ContactsAPI/AddListContact', data)
 
 // Step 2: verify status code
 ApiHelper.verifyStatusCode(response, 201)

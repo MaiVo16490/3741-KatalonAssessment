@@ -10,7 +10,12 @@ ApiHelper.verifyStatusCode(responseAdd, 201)
 def response = ApiHelper.sendRequest('Object Repository/ContactsAPI/DeleteContact')
 
 // Step 3: verify status code
-ApiHelper.verifyStatusCode(response, 200)
+if (response.getStatusCode() == 503) {
+    ApiHelper.logBug("Known bug: Delete Contact endpoint returned 503.")
+    assert false : "Test failed due to 503 error in Delete Contact API."
+} else {
+    ApiHelper.verifyStatusCode(response, 200)
+}
 
 // Step 4: verify delete contact successfully
 def responseGet = ApiHelper.sendRequest('Object Repository/ContactsAPI/GetContact')
