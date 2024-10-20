@@ -1,0 +1,2 @@
+Sun Oct 20 22:22:05 ICT 2024 - Known bug: Edit Contact endpoint returned 503.
+Sun Oct 20 22:26:34 ICT 2024 - Known bug: Delete Contact endpoint returned 503.
