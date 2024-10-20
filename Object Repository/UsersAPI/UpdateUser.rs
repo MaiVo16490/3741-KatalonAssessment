@@ -16,12 +16,12 @@
       </authorizationInfo>
       <authorizationType>Bearer</authorizationType>
    </authorizationRequest>
-   <autoUpdateContent>true</autoUpdateContent>
+   <autoUpdateContent>false</autoUpdateContent>
    <connectionTimeout>-1</connectionTimeout>
    <followRedirects>false</followRedirects>
    <httpBody></httpBody>
    <httpBodyContent>{
-  &quot;text&quot;: &quot;{\n    \&quot;firstName\&quot;: \&quot;Updated\&quot;,\n    \&quot;lastName\&quot;: \&quot;Username\&quot;,\n    \&quot;email\&quot;: \&quot;test2@fake.com\&quot;,\n    \&quot;password\&quot;: \&quot;myNewPassword\&quot;\n}&quot;,
+  &quot;text&quot;: &quot;{\n  \&quot;email\&quot;: \&quot;${GlobalVariable.email}\&quot;,\n  \&quot;password\&quot;: \&quot;${GlobalVariable.password}\&quot;,\n  \&quot;firstName\&quot;: \&quot;${newfirstName}\&quot;,\n  \&quot;lastName\&quot;: \&quot;${newlastName}\&quot;\n}&quot;,
   &quot;contentType&quot;: &quot;application/json&quot;,
   &quot;charset&quot;: &quot;UTF-8&quot;
 }</httpBodyContent>

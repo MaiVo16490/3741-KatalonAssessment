@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebServiceRequestEntity>
    <description></description>
-   <name>AddContact</name>
+   <name>LogInUser</name>
    <tag></tag>
-   <elementGuidId>936379ff-53d7-44f3-bdd6-c6bbe5332248</elementGuidId>
+   <elementGuidId>14594ed1-928a-493f-b78b-7e5af3663196</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <smartLocatorEnabled>false</smartLocatorEnabled>
    <useRalativeImagePath>false</useRalativeImagePath>
@@ -21,7 +21,7 @@
    <followRedirects>false</followRedirects>
    <httpBody></httpBody>
    <httpBodyContent>{
-  &quot;text&quot;: &quot;&quot;,
+  &quot;text&quot;: &quot;{\n    \&quot;email\&quot;: \&quot;${GlobalVariable.newEmail}\&quot;,\n    \&quot;password\&quot;: \&quot;${GlobalVariable.password}\&quot;\n}&quot;,
   &quot;contentType&quot;: &quot;application/json&quot;,
   &quot;charset&quot;: &quot;UTF-8&quot;
 }</httpBodyContent>
@@ -32,7 +32,7 @@
       <name>Content-Type</name>
       <type>Main</type>
       <value>application/json</value>
-      <webElementGuid>2bb742ec-613c-4e1e-9e50-f4b4644add8f</webElementGuid>
+      <webElementGuid>fe03f602-4a90-42a8-aaae-7e5050dc00c2</webElementGuid>
    </httpHeaderProperties>
    <httpHeaderProperties>
       <isSelected>true</isSelected>
@@ -40,14 +40,14 @@
       <name>Authorization</name>
       <type>Main</type>
       <value>Bearer ${GlobalVariable.token}</value>
-      <webElementGuid>a9bedc2e-4037-48d6-94b8-3c5e520f76a8</webElementGuid>
+      <webElementGuid>fea2680f-1300-4d08-9acd-d40a1a32d5c5</webElementGuid>
    </httpHeaderProperties>
    <katalonVersion>9.6.0</katalonVersion>
    <maxResponseSize>-1</maxResponseSize>
    <migratedVersion>5.4.1</migratedVersion>
    <path></path>
    <restRequestMethod>POST</restRequestMethod>
-   <restUrl>https://thinking-tester-contact-list.herokuapp.com/contacts</restUrl>
+   <restUrl>https://thinking-tester-contact-list.herokuapp.com/users/login</restUrl>
    <serviceType>RESTful</serviceType>
    <soapBody></soapBody>
    <soapHeader></soapHeader>

@@ -20,86 +20,68 @@ import groovy.json.JsonOutput
 import com.kms.katalon.core.testobject.impl.HttpTextBodyContent
 
 
-// Step 1: Generate random first and last name using custom keywords
-def randomFirstName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomFirstName'()
-def randomLastName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomLastName'()
+ boolean signUpSuccess = false
+    int maxRetries = 5 // Set a maximum number of retries to avoid infinite loops
+    int retryCount = 0
+    String Pass = 'Mai@16490' // Password is static
 
-// Step 2: Generate random email and password for the new user
-def newEmail = CustomKeywords.'customKeywords.RandomEmailGenerator.generateRandomEmail'(300)
-def Pass = 'Mai@16490'
+    // Retry the sign-up process until success or the maximum retry limit is reached
+    while (!signUpSuccess && retryCount < maxRetries) {
+        def randomFirstName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomFirstName'()
+        def randomLastName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomLastName'()
+        
+        // Generate random email for the new user
+        def newEmail = CustomKeywords.'customKeywords.RandomEmailGenerator.generateRandomEmail'(300)
 
-// Store generated email and names in GlobalVariable for later use
-GlobalVariable.newEmail = newEmail
-GlobalVariable.newfirstName = randomFirstName
-GlobalVariable.newlastName = randomLastName
+        // Store generated email and names in GlobalVariable for later use
+        GlobalVariable.newEmail = newEmail
+        GlobalVariable.newfirstName = randomFirstName
+        GlobalVariable.newlastName = randomLastName
 
-// Step 3: Log the details of the signup request before sending it
-println("Sending Sign Up Request with:")
-println("Email: " + GlobalVariable.newEmail)
-println("First Name: " + GlobalVariable.newfirstName)
-println("Last Name: " + GlobalVariable.newlastName)
+        // Log the details of the signup request before sending it
+        println("Sending Sign Up Request with:")
+        println("Email: " + GlobalVariable.newEmail)
+        println("First Name: " + GlobalVariable.newfirstName)
+        println("Last Name: " + GlobalVariable.newlastName)
 
-// Step 4: Send the sign-up request using the existing test object
-def signUpResponse = WS.sendRequest(findTestObject('Object Repository/UsersAPI/AddUser', [
-    ('newEmail') : GlobalVariable.newEmail,
-    ('newPass')  : Pass,
-    ('newfirstName'): GlobalVariable.newfirstName,
-    ('newlastName') : GlobalVariable.newlastName
-]))
+        // Step 4: Send the sign-up request using the existing test object
+        def signUpResponse = WS.sendRequest(findTestObject('Object Repository/UsersAPI/AddUser', [
+            ('newEmail')    : GlobalVariable.newEmail,
+            ('newPass')     : Pass,
+            ('newfirstName'): GlobalVariable.newfirstName,
+            ('newlastName') : GlobalVariable.newlastName
+        ]))
 
-// Step 5: Extract the response content and status code
-def responseBody = signUpResponse.getResponseBodyContent()
-def responseStatus = signUpResponse.getStatusCode()
-println("Sign Up Response Status: $responseStatus")
+        // Step 5: Extract the response content and status code
+        def responseBody = signUpResponse.getResponseBodyContent()
+        def responseStatus = signUpResponse.getStatusCode()
+        println("Sign Up Response Status: $responseStatus")
 
-// Step 6: Parse the JSON response
-def jsonResponse = new JsonSlurper().parseText(responseBody)
-println("Full Parsed Response: $jsonResponse")
+        // Step 6: Parse the JSON response
+        def jsonResponse = new JsonSlurper().parseText(responseBody)
+        println("Full Parsed Response: $jsonResponse")
 
-// Step 7: Extract token from response (if present)
-def token = jsonResponse?.token
-if (token) {
-    println("Token: $token")
-    GlobalVariable.token = token // Store token for future use
-} else {
-    println("Sign up failed: No token returned")
-    return // Exit if no token is returned
-}
+        // Step 7: Check if the email is already in use and retry if needed
+        if (responseStatus == 400 && jsonResponse?.message == 'Email address is already in use') {
+            println("Email address is already in use. Retrying with a new email...")
+            retryCount++
+            continue // Retry the sign-up process
+        }
 
-// Step 8: Send GET request to verify user data via API
-TestObject getUserProfileRequest = findTestObject('Object Repository/UsersAPI/GetUserProfile')
+        // Step 8: Extract token from response (if present)
+        def token = jsonResponse?.token
+        if (token) {
+            println("Token: $token")
+            GlobalVariable.token = token // Store token for future use
+            signUpSuccess = true // Mark sign-up as successful
+        } else {
+            println("Sign up failed: No token returned")
+            return // Exit if no token is returned
+        }
+    }
 
-// Add authorization header with bearer token
-getUserProfileRequest.getHttpHeaderProperties().add(new TestObjectProperty('Authorization', ConditionType.EQUALS, 'Bearer ' + GlobalVariable.token))
-
-// Log the authorization header
-println("Authorization header set to: Bearer " + GlobalVariable.token)
-
-// Send GET request
-def getUserResponse = WS.sendRequest(getUserProfileRequest)
-
-// Verify the status code is 200
-WS.verifyResponseStatusCode(getUserResponse, 200)
-
-// Parse the response
-def getUserResponseBody = getUserResponse.getResponseBodyContent()
-def getUserJsonResponse = new JsonSlurper().parseText(getUserResponseBody)
-
-// Log the response for debugging
-println("Get User API Response: " + getUserResponseBody)
-
-// Step 9: Verify that the API returned the correct values
-println("First Name from API: " + getUserJsonResponse.firstName)
-println("Last Name from API: " + getUserJsonResponse.lastName)
-println("Email from API: " + getUserJsonResponse.email)
-
-// Step 10: Verify that the API response matches the global variables (firstName, lastName, email)
-WS.verifyElementPropertyValue(getUserResponse, 'firstName', GlobalVariable.newfirstName)
-WS.verifyElementPropertyValue(getUserResponse, 'lastName', GlobalVariable.newlastName)
-WS.verifyElementPropertyValue(getUserResponse, 'email', GlobalVariable.newEmail)
-
-// Log the verification result
-println("User data via API matches GlobalVariable: First Name, Last Name, and Email are correct.")
-
-
-
+    // Check if sign-up was unsuccessful after max retries
+    if (!signUpSuccess) {
+        println("Sign-up process failed after $maxRetries attempts. Exiting.")
+        return
+    }

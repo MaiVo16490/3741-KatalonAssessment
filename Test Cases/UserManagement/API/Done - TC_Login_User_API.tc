@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>TC_Delete_User_API</name>
+   <name>Done - TC_Login_User_API</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
-   <testCaseGuid>b47b88d3-32c8-4312-8bb3-8bf29861b83c</testCaseGuid>
+   <testCaseGuid>ad0167d5-5571-4df1-a516-6edff3661f7e</testCaseGuid>
 </TestCaseEntity>

@@ -1,5 +1,6 @@
 package utils
-
+import com.kms.katalon.core.testobject.RequestObject
+import com.kms.katalon.core.testobject.impl.HttpTextBodyContent
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -42,4 +43,17 @@ public class ApiHelper {
 	static def getToken(def jsonResponse) {
 		return jsonResponse.token
 	}
+	@Keyword
+	static def setBody(String path, String body) {
+		def request = findTestObject(path)
+		request.setBodyContent(new HttpTextBodyContent(body))
+		return request
+	}
+	@Keyword
+	static def sendRequest(String path, String data) {
+		def abc = ApiHelper.setBody(path, data)
+		return WS.sendRequest(abc)
+	}
+	
+	
 }

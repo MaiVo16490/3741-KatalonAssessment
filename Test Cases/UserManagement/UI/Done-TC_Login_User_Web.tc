@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>Need fix - TC_AddNewContact_API</name>
+   <name>Done-TC_Login_User_Web</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
-   <testCaseGuid>1e613f06-0162-4677-87d8-372d0be44562</testCaseGuid>
+   <testCaseGuid>0c7cb0b8-9a66-4644-a593-e93ce3589a2a</testCaseGuid>
 </TestCaseEntity>
