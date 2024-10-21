@@ -6,9 +6,6 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import groovy.json.JsonSlurper
 import internal.GlobalVariable
 
-
-
-
  boolean signUpSuccess = false
     int maxRetries = 5 // Set a maximum number of retries to avoid infinite loops
     int retryCount = 0

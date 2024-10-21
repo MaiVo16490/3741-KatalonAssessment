@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description></description>
-   <name>Notcommit - TC_DeleteAllContact_API</name>
-   <tag></tag>
-   <comment></comment>
-   <recordOption>OTHER</recordOption>
-   <testCaseGuid>b7bb13c2-0c0b-4491-bb2d-2926b7113f2b</testCaseGuid>
-</TestCaseEntity>

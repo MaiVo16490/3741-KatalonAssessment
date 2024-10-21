@@ -34,9 +34,11 @@ import org.openqa.selenium.Keys as Keys
 import groovy.json.JsonOutput
 import com.kms.katalon.core.testobject.impl.HttpTextBodyContent
 
-class TestListener {
 
- @BeforeTestCase
+
+ class TestListener {
+
+    @BeforeTestCase
     def sampleBeforeTestCase(TestCaseContext testCaseContext) {
         def testCaseName = testCaseContext.getTestCaseId()
 
@@ -45,171 +47,146 @@ class TestListener {
             performSignUpAndLogin()
 
         } else if (testCaseName.contains('Login_User_API')) {
-            println "Test case is related to API login, proceeding with login only."
-            performLoginOnly()
-
-        } else if (testCaseName.contains('SignUp_User_API')) {
-            println "Skipping sign-up and login for SignUp_User_API test case."
+            println "Test case is related to API login, proceeding with sign-up."
+            performSignUp()
 
         } else if (!testCaseName.contains('Login_User_Web') && !testCaseName.contains('SignUp_User_Web')) {
             println "Starting login for regular test case."
-          // Regular flow for other test cases (not related to Login or SignUp through the web)
-            def response = ApiHelper.sendRequest('Object Repository/UsersAPI/Auth')
-            ApiHelper.verifyStatusCode(response, 200)
-            def jsonRes = ApiHelper.getResponseBody(response)
-            GlobalVariable.token = jsonRes.token
-            println "Login successfully"
-
+            loginUser() // Regular login flow for other test cases
         } else {
             println "Skipping login step for: " + testCaseName
         }
     }
 
-      @AfterTestCase
+    @AfterTestCase
     def sampleAfterTestCase(TestCaseContext testCaseContext) {
         def testCaseName = testCaseContext.getTestCaseId()
 
-        // Check if the test case is related to Login_User_API or SignUp_User_API to clean up user data
         if (testCaseName.contains('Login_User_API') || testCaseName.contains('SignUp_User_API')) {
-            println "Cleaning up after test case: " + testCaseName
-            deleteUser()
+           
+			println "Cleaning up after test case: " + testCaseName
+			deleteUser()
         }
     }
 
+    def performSignUp() {
+        def signUpSuccess = false
+        def retryCount = 0
+        def maxRetries = 5
+        def Pass = 'Mai@16490'
 
+        while (!signUpSuccess && retryCount < maxRetries) {
+            generateRandomUserDetails() // Helper method to generate user data
 
-    @BeforeTestSuite
-    def sampleBeforeTestSuite(TestSuiteContext testSuiteContext) {
-        // Add any setup logic here for the test suite
+            // Send the sign-up request using ApiHelper
+            def requestBody = """
+            {
+                "email": "${GlobalVariable.newEmail}",
+                "password": "$Pass",
+                "firstName": "${GlobalVariable.newfirstName}",
+                "lastName": "${GlobalVariable.newlastName}"
+            }
+            """
+            def signUpResponse = ApiHelper.sendRequest('Object Repository/UsersAPI/AddUser', requestBody)
+            ApiHelper.verifyStatusCode(signUpResponse, 201) // Assuming 200 for success
+
+            def signUpResponseBody = ApiHelper.getResponseBody(signUpResponse)
+            if (signUpResponseBody.message == 'Email address is already in use') {
+                println("Email already in use. Retrying...")
+                retryCount++
+            } else {
+                GlobalVariable.token = ApiHelper.getToken(signUpResponseBody)
+                signUpSuccess = true
+                verifyUserProfile() // Verify the user after sign-up
+            }
+        }
+
+        if (!signUpSuccess) {
+            println("Sign-up process failed after $maxRetries attempts.")
+        }
     }
 
-    @AfterTestSuite
-    def sampleAfterTestSuite(TestSuiteContext testSuiteContext) {
-        // Add any teardown logic here for the test suite
-    }
-
-   // Function for handling sign-up and login via API
     def performSignUpAndLogin() {
-    boolean signUpSuccess = false
-    int maxRetries = 5 // Set a maximum number of retries to avoid infinite loops
-    int retryCount = 0
-    String Pass = 'Mai@16490' // Password is static
-
-    // Retry the sign-up process until success or the maximum retry limit is reached
-    while (!signUpSuccess && retryCount < maxRetries) {
-        def randomFirstName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomFirstName'()
-        def randomLastName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomLastName'()
-        
-        // Generate random email for the new user
-        def newEmail = CustomKeywords.'customKeywords.RandomEmailGenerator.generateRandomEmail'(300)
-
-        // Store generated email and names in GlobalVariable for later use
-        GlobalVariable.newEmail = newEmail
-        GlobalVariable.newfirstName = randomFirstName
-        GlobalVariable.newlastName = randomLastName
-
-        // Log the details of the signup request before sending it
-        println("Sending Sign Up Request with:")
-        println("Email: " + GlobalVariable.newEmail)
-        println("First Name: " + GlobalVariable.newfirstName)
-        println("Last Name: " + GlobalVariable.newlastName)
-
-        // Step 4: Send the sign-up request using the existing test object
-        def signUpResponse = WS.sendRequest(findTestObject('Object Repository/UsersAPI/AddUser', [
-            ('newEmail')    : GlobalVariable.newEmail,
-            ('newPass')     : Pass,
-            ('newfirstName'): GlobalVariable.newfirstName,
-            ('newlastName') : GlobalVariable.newlastName
-        ]))
-
-        // Step 5: Extract the response content and status code
-        def responseBody = signUpResponse.getResponseBodyContent()
-        def responseStatus = signUpResponse.getStatusCode()
-        println("Sign Up Response Status: $responseStatus")
-
-        // Step 6: Parse the JSON response
-        def jsonResponse = new JsonSlurper().parseText(responseBody)
-        println("Full Parsed Response: $jsonResponse")
-
-        // Step 7: Check if the email is already in use and retry if needed
-        if (responseStatus == 400 && jsonResponse?.message == 'Email address is already in use') {
-            println("Email address is already in use. Retrying with a new email...")
-            retryCount++
-            continue // Retry the sign-up process
+        performSignUp() // Reuse performSignUp method
+        if (GlobalVariable.token) {
+            performLogin(GlobalVariable.newEmail, 'Mai@16490') // Call login after successful sign-up
         }
+    }
 
-        // Step 8: Extract token from response (if present)
-        def token = jsonResponse?.token
-        if (token) {
-            println("Token: $token")
-            GlobalVariable.token = token // Store token for future use
-            signUpSuccess = true // Mark sign-up as successful
+    def performLogin(String email, String password) {
+        // Prepare login request body
+        def loginRequestBody = """
+        {
+            "email": "$email",
+            "password": "$password"
+        }
+        """
+        // Send the login request using ApiHelper
+        def loginResponse = ApiHelper.sendRequest('Object Repository/UsersAPI/LogInUser', loginRequestBody)
+        ApiHelper.verifyStatusCode(loginResponse, 200)
+
+        def loginResponseBody = ApiHelper.getResponseBody(loginResponse)
+        GlobalVariable.token = ApiHelper.getToken(loginResponseBody)
+
+        println("Login successful, token received: ${GlobalVariable.token}")
+        verifyUserProfile() // Verify the user profile after login
+    }
+
+    def loginUser() {
+        def response = ApiHelper.sendRequest('Object Repository/UsersAPI/Auth')
+        ApiHelper.verifyStatusCode(response, 200)
+        def jsonResponse = ApiHelper.getResponseBody(response)
+        GlobalVariable.token = jsonResponse.token
+        println "Login successfully"
+    }
+
+    def generateRandomUserDetails() {
+        GlobalVariable.newEmail = CustomKeywords.'customKeywords.RandomEmailGenerator.generateRandomEmail'(300)
+        GlobalVariable.newfirstName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomFirstName'()
+        GlobalVariable.newlastName = CustomKeywords.'customKeywords.RandomNameGenerator.generateRandomLastName'()
+    }
+
+
+    def deleteUser() {
+        if (GlobalVariable.token) {
+            // Send delete request using ApiHelper
+            def deleteResponse = ApiHelper.sendRequest('Object Repository/UsersAPI/DeleteUser', """
+            {
+                "Authorization": "Bearer ${GlobalVariable.token}"
+            }
+            """)
+            ApiHelper.verifyStatusCode(deleteResponse, 200)
+            println("User deleted successfully.")
         } else {
-            println("Sign up failed: No token returned")
-            return // Exit if no token is returned
+            println("No token found, unable to delete user.")
         }
     }
-
-    // Check if sign-up was unsuccessful after max retries
-    if (!signUpSuccess) {
-        println("Sign-up process failed after $maxRetries attempts. Exiting.")
-        return
-    }
-
-    // Step 9: Send GET request to verify user data via API
-    TestObject getUserProfileRequest = findTestObject('Object Repository/UsersAPI/GetUserProfile')
-
-    // Add authorization header with bearer token
-    getUserProfileRequest.getHttpHeaderProperties().add(new TestObjectProperty('Authorization', ConditionType.EQUALS, 'Bearer ' + GlobalVariable.token))
-
-    // Log the authorization header
-    println("Authorization header set to: Bearer " + GlobalVariable.token)
-
-    // Send GET request
-    def getUserResponse = WS.sendRequest(getUserProfileRequest)
-
-    // Verify the status code is 200
-    WS.verifyResponseStatusCode(getUserResponse, 200)
-
-    // Parse the response
-    def getUserResponseBody = getUserResponse.getResponseBodyContent()
-    def getUserJsonResponse = new JsonSlurper().parseText(getUserResponseBody)
-
-    // Log the response for debugging
-    println("Get User API Response: " + getUserResponseBody)
-
-    // Step 10: Verify that the API returned the correct values
-    println("First Name from API: " + getUserJsonResponse.firstName)
-    println("Last Name from API: " + getUserJsonResponse.lastName)
-    println("Email from API: " + getUserJsonResponse.email)
-
-    // Step 11: Verify that the API response matches the global variables (firstName, lastName, email)
-    WS.verifyElementPropertyValue(getUserResponse, 'firstName', GlobalVariable.newfirstName)
-    WS.verifyElementPropertyValue(getUserResponse, 'lastName', GlobalVariable.newlastName)
-    WS.verifyElementPropertyValue(getUserResponse, 'email', GlobalVariable.newEmail)
-
-    // Log the verification result
-    println("User data via API matches GlobalVariable: First Name, Last Name, and Email are correct.")
-}
 	
-	
-	// Function to delete the user via API after the test case
-	def deleteUser() {
-		if (GlobalVariable.token) {
-			// Send request to delete the user using the token
-			def deleteResponse = WS.sendRequest(findTestObject('Object Repository/UsersAPI/DeleteUser', [
-				('Authorization') : 'Bearer ' + GlobalVariable.token
-			]))
+	// Step to Verify Profile Status and Data (Reusable)
+	def verifyUserProfileAfterAuth() {
+		// Send GET request to verify user profile after login or sign-up
+		def getUserProfileRequest = findTestObject('Object Repository/UsersAPI/GetUserProfile')
+		getUserProfileRequest.getHttpHeaderProperties().add(new TestObjectProperty('Authorization', ConditionType.EQUALS, 'Bearer ' + GlobalVariable.token))
 
-			// Verify the response is successful (status code 200 or 204)
-			def deleteStatus = deleteResponse.getStatusCode()
-			if (deleteStatus == 200 || deleteStatus == 204) {
-				println("User deleted successfully after test case.")
-			} else {
-				println("Failed to delete user. Status code: $deleteStatus")
-			}
-		} else {
-			println("No token found, unable to delete user.")
+		// Send request and validate status code
+		def getUserResponse = ApiHelper.sendRequest('Object Repository/UsersAPI/GetUserProfile')
+
+		if (getUserResponse.getStatusCode() != 200) {
+			def errorMessage = "Get User Profile failed with status: ${getUserResponse.getStatusCode()}"
+			println(errorMessage)
+			ApiHelper.logBug(errorMessage)
+			return // Exit if profile verification fails
 		}
+
+		// Extract and verify user data
+		def getUserResponseBody = ApiHelper.getResponseBody(getUserResponse)
+		println("Get User API Response: ${getUserResponseBody}")
+
+		// Verify user data matches global variables
+		WS.verifyElementPropertyValue(getUserResponse, 'firstName', GlobalVariable.newfirstName)
+		WS.verifyElementPropertyValue(getUserResponse, 'lastName', GlobalVariable.newlastName)
+		WS.verifyElementPropertyValue(getUserResponse, 'email', GlobalVariable.newEmail)
+
+		println("User data via API matches GlobalVariable: First Name, Last Name, and Email are correct.")
 	}
 }
