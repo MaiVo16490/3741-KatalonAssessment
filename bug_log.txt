@@ -1,2 +1,4 @@
 Sun Oct 20 22:22:05 ICT 2024 - Known bug: Edit Contact endpoint returned 503.
 Sun Oct 20 22:26:34 ICT 2024 - Known bug: Delete Contact endpoint returned 503.
+Mon Oct 21 02:27:27 ICT 2024 - Sign-up failed with status: 201 for email: user226@example.com
+Mon Oct 21 02:35:14 ICT 2024 - Sign-up failed with status: 201 for email: user117@example.com

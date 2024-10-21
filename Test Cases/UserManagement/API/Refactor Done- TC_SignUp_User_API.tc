@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>Done - TC_Login_User_API</name>
+   <name>Refactor Done- TC_SignUp_User_API</name>
    <tag></tag>
    <comment></comment>
    <recordOption>OTHER</recordOption>
-   <testCaseGuid>ad0167d5-5571-4df1-a516-6edff3661f7e</testCaseGuid>
+   <testCaseGuid>cd77616b-7705-405f-a3db-ec7222baeb0f</testCaseGuid>
 </TestCaseEntity>
